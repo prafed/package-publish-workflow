@@ -36,7 +36,7 @@ jobs:
           scope: '@prafed'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile --non-interactive --prefer-offline
+        run: yarn install --immutable
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
