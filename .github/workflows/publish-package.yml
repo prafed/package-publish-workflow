@@ -11,7 +11,7 @@ permissions:
   contents: read # This is required for actions/checkout
 
 jobs:
-  package:
+  publish-package:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -54,7 +54,7 @@ jobs:
       #     npm version patch
 
       - name: Release new version
-        if: steps.is-package-published.outputs.value == 'true'
+        if: steps.is-package-published.outputs.value == 'false'
         run: |
           npm publish
         env:
