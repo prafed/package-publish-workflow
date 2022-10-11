@@ -1,0 +1,19 @@
+{
+  "name": "@prafed/package-publish",
+  "packageManager": "yarn@3.2.3",
+  "version": "0.0.2",
+  "license": "UNLICENSED",
+  "main": "lib/test.js",
+  "type": "module",
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prafed/package-publish-workflow"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
+  }
+}
