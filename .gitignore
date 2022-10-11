@@ -8,7 +8,6 @@ report.*.json
 *.iml
 
 # App
-lib/
 node_modules
 
 # Test
