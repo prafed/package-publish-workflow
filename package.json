@@ -1,7 +1,7 @@
 {
   "name": "@prafed/package-publish",
   "packageManager": "yarn@3.2.3",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "UNLICENSED",
   "main": "lib/test.js",
   "type": "module",

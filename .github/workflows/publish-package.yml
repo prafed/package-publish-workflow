@@ -1,4 +1,4 @@
-name: Release package
+name: Publish package
 
 on:
   push:
@@ -36,11 +36,6 @@ jobs:
         run: yarn install --immutable
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
-
-      - name: Configure git
-        run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor}}@users.noreply.github.com"
 
       - name: Check if current version is published
         id: is-package-published
