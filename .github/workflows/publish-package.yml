@@ -12,6 +12,7 @@ permissions:
 
 jobs:
   publish-package:
+    name: Publish Package
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
