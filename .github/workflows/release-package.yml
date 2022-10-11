@@ -44,7 +44,8 @@ jobs:
 
       - name: Check if current version is published
         id: is-package-published
-        run: ./.github/scripts/is-current-version-published
+        run: ./is-current-version-published
+        working-directory: .github/scripts
 
       - name: Bump patch version X.X.(+1)
         if: steps.is-package-published.outputs.value == 'true'
