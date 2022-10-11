@@ -6,9 +6,8 @@ echo "CURRENT_VERSION: $CURRENT_VERSION"
 PUBLISHED_VERSION=$(npm view . version)
 echo "PUBLISHED_VERSION: $PUBLISHED_VERSION"
 
-[[ $CURRENT_VERSION =~ $PUBLISHED_VERSION ]] && echo true || echo false
-
-# if [[ $CURRENT_VERSION =~ $PUBLISHED_VERSION ]]; 
-#   then echo true
-#   else echo false
-# fi
+if [[ $CURRENT_VERSION =~ $PUBLISHED_VERSION ]]; then
+    echo "::set-output name=value::true"
+else
+    echo "::set-output name=value::false"
+fi

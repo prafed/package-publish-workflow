@@ -1,0 +1,76 @@
+name: Release package
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - lib/**
+
+permissions:
+  contents: read # This is required for actions/checkout
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: ./
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Use Node.js 16
+        timeout-minutes: 1
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com
+          scope: '@prafed'
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile --non-interactive --prefer-offline
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor}}@users.noreply.github.com"
+
+      - name: Check if current version is published
+        id: is-package-published
+        run: ./.github/scripts/is-current-version-published
+
+      - name: Bump patch version X.X.(+1)
+        if: steps.is-package-published.outputs.value == 'true'
+        run: |
+          npm version patch
+
+      - name: Release new version
+        run: |
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      # - name: Updated packages
+      #   run: |
+      #     npx lerna updated
+
+      # - name: Version packages
+      #   run: |
+      #     npx lerna version --no-private --create-release github --message "chore(release): publish [skip ci]" --conventional-commits --yes
+      #   env:
+      #     GH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
+
+      # - name: Publish packages
+      #   run: npx lerna publish from-git --yes --no-verify-access
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
