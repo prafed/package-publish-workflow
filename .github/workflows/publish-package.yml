@@ -45,7 +45,7 @@ jobs:
 
       - name: Bump patch version
         run: |
-          npm version patch -m "Updated package version to  %s"
+          npm version patch --git-tag-version=true -m "Updated package version to  %s"
 
       - name: Release new version
         run: |
