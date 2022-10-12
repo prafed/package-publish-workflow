@@ -44,6 +44,7 @@ jobs:
           git config user.email "${{ github.actor}}@users.noreply.github.com"
 
       - name: Bump patch version
+        working-directory: ./
         run: |
           npm version patch --git-tag-version=true -m "Updated package version to  %s"
 
