@@ -39,7 +39,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
 
       - name: Bump patch version X.X.(+1)
-        if: steps.is-package-published.outputs.value == 'true'
         run: |
           npm version patch -m "Updated package version to  %s"
 
